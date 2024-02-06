@@ -1,5 +1,14 @@
 # Compiled class file
 *.class
+mybatis-config.xml
+log4j.xml
+lecture
+target
+pom.properties
+.classpath
+bin/
+tmp/
+/build/
 
 # Log file
 *.log
