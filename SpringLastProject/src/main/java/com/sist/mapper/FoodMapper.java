@@ -17,4 +17,9 @@ public interface FoodMapper {
 	@Select("SELECT CEIL(COUNT(*)/20.0) FROM food_menu_house "
 			+ "WHERE address LIKE '%'||#{address}||'%'")
 	public int foodFindCount(Map map);
+	
+	@Select("SELECT fno,score,poster,name,type,address,phone,theme,price,time,seat "
+			+ "FROM food_menu_house "
+			+ "WHERE fno=#{fno}")
+	public FoodVO foodDetailData(int fno);
 }

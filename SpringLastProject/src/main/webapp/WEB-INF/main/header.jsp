@@ -10,7 +10,7 @@
 <div class="wrapper row1">
   <header id="header" class="clear"> 
     <div id="logo" class="fl_left">
-      <h1><a href="index.html">Gravity</a></h1>
+      <h1><a href="../main/main.do">Gravity</a></h1>
     </div>
     <div class="fl_right">
       <ul class="inline">
@@ -23,7 +23,7 @@
 <div class="wrapper row2">
   <nav id="mainav" class="clear"> 
     <ul class="clear">
-      <li class="active"><a href="index.html">Home</a></li>
+      <li class="active"><a href="../main/main.do">Home</a></li>
       <li><a class="drop" href="#">회원</a>
         <ul>
           <li><a href="pages/gallery.html">회원가입</a></li>
@@ -50,7 +50,7 @@
       </li>
       <li><a class="drop" href="#">커뮤니티</a>
         <ul>
-          <li><a href="pages/gallery.html">자유게시판</a></li>
+          <li><a href="../freeboard/list.do">자유게시판</a></li>
           <li><a href="pages/full-width.html">공지사항</a></li>
           <li><a href="pages/sidebar-left.html">묻고답하기</a></li>
         </ul>
@@ -58,6 +58,7 @@
       <li><a href="#">실시간 채팅</a></li>
       <li><a href="#">마이페이지</a></li>
       <li><a href="#">관리자페이지</a></li>
+      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
     </ul>
   </nav>
 </div>
