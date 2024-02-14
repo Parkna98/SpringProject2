@@ -148,4 +148,49 @@ public class FoodRestController {
 		return json;
 	}
 	
+	@GetMapping(value="food_list_vue.do",produces = "text/plain;charset=UTF-8")
+	public String food_list_vue(int page) throws JsonProcessingException{
+		int rowSize=20;
+		int start=(rowSize*page)-(rowSize-1);
+		int end=(rowSize*page);
+		List<FoodVO> list=service.foodListData(start, end);
+		
+		ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(list);
+		
+		return json;
+	}
+	
+	@GetMapping(value="food_page_vue.do",produces = "text/plain;charset=UTF-8")
+	public String food_page_vue(int page) throws JsonProcessingException{
+		final int BLOCK=10;
+		int startPage=((page-1)/BLOCK*BLOCK)+1;
+		int endPage=((page-1)/BLOCK*BLOCK)+BLOCK;
+		int totalpage=service.foodListTotalPage();
+		if(endPage>totalpage)
+			endPage=totalpage;
+		
+		Map map=new HashMap();
+		map.put("startPage", startPage);
+		map.put("endPage", endPage);
+		map.put("totalpage", totalpage);
+		map.put("curpage", page);
+		
+		ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(map);
+		
+		return json;
+	}
+	
+	@GetMapping(value="food_detail_vue.do",produces = "text/plain;charset=UTF-8")
+	public String food_list_detail_vue (int fno) throws JsonProcessingException {
+		FoodVO vo=service.foodDetailInfoData(fno);
+		
+		// json 만드는 라이브러리 => jackson
+		ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(vo);
+		
+		return json;
+	}
+	
 }

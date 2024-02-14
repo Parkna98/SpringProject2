@@ -33,7 +33,7 @@
       </li>
       <li><a class="drop" href="#">맛집</a>
         <ul>
-          <li><a href="pages/gallery.html">맛집 목록</a></li>
+          <li><a href="../food/food_list.do">맛집 목록</a></li>
           <li><a href="../food/food_find.do">맛집 찾기</a></li>
           <li><a href="pages/sidebar-left.html">맛집 추천</a></li>
           <li><a href="pages/sidebar-right.html">맛집 예약</a></li>

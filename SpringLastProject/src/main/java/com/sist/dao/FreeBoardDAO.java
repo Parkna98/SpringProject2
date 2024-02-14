@@ -29,5 +29,31 @@ public class FreeBoardDAO {
 		return mapper.freeboardDetailData(no);
 	}
 	
+	public String freeboardDelete(int no,String pwd) {
+		String result="no";
+		String db_pwd=mapper.freeboardGetPassword(no);
+		if(db_pwd.equals(pwd)) {
+			result="yes";
+			mapper.freeboardDelete(no);
+		}
+			
+		return result;
+	}
+	
+	public FreeBoardVO freeboardUpData(int no) {
+		return mapper.freeboardDetailData(no);
+	}
+	
+	public String freeboardUpdate(FreeBoardVO vo) {
+		String result="no";
+		String db_pwd=mapper.freeboardGetPassword(vo.getNo());
+		if(db_pwd.equals(vo.getPwd())) {
+			result="yes";
+			mapper.freeboardUpdate(vo);
+		}
+			
+		return result;
+	}
+	
 	
 }

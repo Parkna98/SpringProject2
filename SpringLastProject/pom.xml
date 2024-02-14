@@ -29,7 +29,14 @@
 		    <version>1.1</version>
 		    <scope>provided</scope>
 		</dependency>
-	
+		<!-- kokoma -->
+		<dependency>
+		  <groupId>org.snu</groupId>
+		  <artifactId>kokoma</artifactId>
+		  <version>1.0</version>
+		  <scope>system</scope>
+		  <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/org.snu.ids.ha.jar</systemPath>
+		</dependency>
 		<!-- security -->
 		<dependency>
 		    <groupId>org.springframework.security</groupId>

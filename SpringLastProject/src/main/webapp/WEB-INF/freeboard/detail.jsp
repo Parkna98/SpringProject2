@@ -1,22 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
       google.charts.load("current", {packages:["corechart"]});
       google.charts.setOnLoadCallback(drawChart);
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['Work',     11],
-          ['Eat',      2],
-          ['Commute',  2],
-          ['Watch TV', 2],
-          ['Sleep',    7]
+          ['단어', '횟수'],
+          <c:forEach var="vo" items="${list}">
+          ['<c:out value="${vo.word}"/>',      <c:out value="${vo.count}"/>],
+          </c:forEach>
         ]);
 
         var options = {
@@ -38,23 +38,36 @@
     <table class="table">
       <tr>
         <th width="20%" class="text-center">번호</th>
-        <td width="30%" class="text-center"></td>
+        <td width="30%" class="text-center" v-text="detail_data.no"></td>
         <th width="20%" class="text-center">작성일</th>
-        <td width="30%" class="text-center"></td>
+        <td width="30%" class="text-center" v-text="detail_data.dbday"></td>
       </tr>
       <tr>
         <th width="20%" class="text-center">이름</th>
-        <td width="30%" class="text-center"></td>
+        <td width="30%" class="text-center" v-text="detail_data.name"></td>
         <th width="20%" class="text-center">조회수</th>
-        <td width="30%" class="text-center"></td>
+        <td width="30%" class="text-center" v-text="detail_data.hit"></td>
       </tr>
       <tr>
         <th width="20%" class="text-center">제목</th>
-        <td colspan="3"></td>
+        <td colspan="3" v-text="detail_data.subject"></td>
       </tr>
       <tr>
         <td colspan="4" class="text-center" valign="top" height="200">
-          <pre style="white-space: pre-wrap;border: none;background-color: white;"></pre>
+          <pre style="white-space: pre-wrap;border: none;background-color: white;">{{detail_data.content}}</pre>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="4" class="text-right inline">
+          <input type="button" class="btn-xs btn-success" value="수정" @click="updateForm()">&nbsp;
+          <input type="button" class="btn-xs btn-danger" value="삭제" ref="delBtn" @click="boardDeleteForm()">&nbsp;
+          <input type="button" class="btn-xs btn-info" value="목록" @click="boardList()">
+        </td>
+      </tr>
+      <tr v-show="isShow">
+        <td colspan="4" class="text-right inline">
+          비밀번호:<input type="password" ref="pwd" v-model="pwd" class="input-sm" size="15">
+          <input type="button" class="btn-sm btn-primary" value="삭제" @click="boardDelete()">&nbsp;
         </td>
       </tr>
     </table>
@@ -65,10 +78,69 @@
   let fApp=Vue.createApp({
 	  data(){
 		return{
-			fno:${no},
-			detail_data:{}
+			no:${no},
+			detail_data:{},
+			data_list:[],
+			pwd:'',
+			isShow:false,
+			check:0
 		}
 	  },
+	  mounted(){
+		axios.get('../freeboard/detail_vue.do',{
+			params:{
+				no:this.no
+			}
+		}).then(response=>{
+			console.log(response.data)
+			this.detail_data=response.data
+		}) 
+	  },
+	  methods:{
+		  boardList(){
+			  location.href='../freeboard/list.do'
+		  },
+		  boardDeleteForm(){
+			  if(this.check===0){
+				  this.check=1;
+				  this.isShow=true
+				  this.$refs.pwd.focus()
+				  this.$refs.delBtn.value="취소"
+			  }else{
+				  this.check=0;
+				  this.isShow=false
+				  this.pwd=''
+				  this.$refs.delBtn.value="삭제"
+			  }
+		  },
+		  boardDelete(){
+			  if(this.pwd===''){
+				  this.$refs.pwd.focus()
+				  // $('#pwd').focus() => e.target.focus()
+				  return;
+			  }
+			  // delete_vue.do?no=1&pwd=1234
+			  axios.get('../freeboard/delete_vue.do',{
+				  params:{
+					  no:this.no,
+					  pwd:this.pwd
+				  }
+			  }).then(response=>{
+				  if(response.data==='yes'){
+					  alert('게시물이 삭제되었습니다.')
+					  location.href='../freeboard/list.do'
+				  }else{
+					  alert('비밀번호가 틀립니다!')	  
+					  this.pwd=''
+					  this.$refs.pwd.focus()
+				  }
+			  })
+		  },
+		  updateForm(){
+			  location.href="../freeboard/update.do?no="+this.no
+		  }
+	  }
+	  
   }).mount('#fboardApp')
 </script>
 </body>

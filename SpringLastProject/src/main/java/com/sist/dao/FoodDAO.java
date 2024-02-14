@@ -1,6 +1,7 @@
 package com.sist.dao;
 import java.util.*;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -21,5 +22,22 @@ public class FoodDAO {
 	
 	public FoodVO foodDetailData(int fno) {
 		return mapper.foodDetailData(fno);
+	}
+	
+	public List<FoodVO> foodListData(int start, int end){
+		return mapper.foodListData(start, end);
+	}
+	
+	public int foodListTotalPage() {
+		return mapper.foodListTotalPage();
+	}
+	
+	public FoodVO foodDetailInfoData(int fno) {
+		mapper.foodHitIncrement(fno);
+		return mapper.foodDetailInfoData(fno);
+	}
+	
+	public List<FoodVO> foodListTop7(){
+		return mapper.foodListTop7();
 	}
 }

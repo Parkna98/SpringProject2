@@ -53,8 +53,31 @@ public class BoardRestController {
 	}
 	
 	@GetMapping(value="detail_vue.do",produces = "text/plain;charset=UTF-8")
-	public String freeBoard_detail_vue(int no) {
+	public String freeBoard_detail_vue(int no) throws JsonProcessingException {
 		FreeBoardVO vo=service.freeboardDetailData(no);
-		return "";
+		ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(vo);
+		return json;
+	}
+	
+	@GetMapping(value="delete_vue.do",produces = "text/plain;charset=UTF-8")
+	public String freeBoard_delete_vue(int no,String pwd) throws JsonProcessingException{
+		String result=service.freeboardDelete(no, pwd);
+		return result;
+	}
+	
+	@GetMapping(value="update_vue.do",produces = "text/plain;charset=UTF-8")
+	public String freeBoard_update_data(int no) throws JsonProcessingException {
+		FreeBoardVO vo=service.freeboardUpData(no);
+		ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(vo);
+		
+		return json;
+	}
+	
+	@PostMapping(value="update_ok_vue.do",produces = "text/plain;charset=UTF-8")
+	public String freeboard_update_ok(FreeBoardVO vo) {
+		String result=service.freeboardUpdate(vo);
+		return result;
 	}
 }

@@ -34,4 +34,23 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 		// TODO Auto-generated method stub
 		return fDao.freeboardDetailData(no);
 	}
+
+	@Override
+	public String freeboardDelete(int no, String pwd) {
+		// TODO Auto-generated method stub
+		return fDao.freeboardDelete(no, pwd);
+	}
+
+	@Override
+	public FreeBoardVO freeboardUpData(int no) {
+		// TODO Auto-generated method stub
+		return fDao.freeboardUpData(no);
+				
+	}
+
+	@Override
+	public String freeboardUpdate(FreeBoardVO vo) {
+		// TODO Auto-generated method stub
+		return fDao.freeboardUpdate(vo);
+	}
 }

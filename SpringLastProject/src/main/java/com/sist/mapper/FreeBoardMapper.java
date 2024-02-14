@@ -1,6 +1,7 @@
 package com.sist.mapper;
 import java.util.*;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -36,10 +37,20 @@ public interface FreeBoardMapper {
 			+ "WHERE no=#{no}")
 	public FreeBoardVO freeboardDetailData(int no);
 	
-	
 	// 수정
+	@Update("UPDATE projectFreeBoard SET "
+			+ "name=#{name},subject=#{subject},content=#{content} "
+			+ "WHERE no=#{no}")
+	public void freeboardUpdate(FreeBoardVO vo);
 	
 	// 삭제
+	@Select("SELECT pwd FROM projectFreeBoard "
+			+ "WHERE no=#{no}")
+	public String freeboardGetPassword(int no);
+	
+	@Delete("DELETE FROM projectFreeBoard "
+			+ "WHERE no=#{no}")
+	public void freeboardDelete(int no);
 }
 
 

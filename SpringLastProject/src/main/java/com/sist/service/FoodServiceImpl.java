@@ -10,6 +10,9 @@ import com.sist.vo.*;
 public class FoodServiceImpl implements FoodService{
 	@Autowired
 	private FoodDAO fDao;
+	
+	@Autowired
+	private NoticeDAO nDao;
 
 	@Override
 	public List<FoodVO> foodFindData(Map map) {
@@ -27,5 +30,35 @@ public class FoodServiceImpl implements FoodService{
 	public FoodVO foodDetailData(int fno) {
 		// TODO Auto-generated method stub
 		return fDao.foodDetailData(fno);
+	}
+
+	@Override
+	public List<FoodVO> foodListData(int start, int end) {
+		// TODO Auto-generated method stub
+		return fDao.foodListData(start, end);
+	}
+
+	@Override
+	public int foodListTotalPage() {
+		// TODO Auto-generated method stub
+		return fDao.foodListTotalPage();
+	}
+
+	@Override
+	public FoodVO foodDetailInfoData(int fno) {
+		// TODO Auto-generated method stub
+		return fDao.foodDetailInfoData(fno);
+	}
+
+	@Override
+	public List<NoticeVO> noticeTop7() {
+		// TODO Auto-generated method stub
+		return nDao.noticeTop7();
+	}
+
+	@Override
+	public List<FoodVO> foodListTop7() {
+		// TODO Auto-generated method stub
+		return fDao.foodListTop7();
 	}
 }
