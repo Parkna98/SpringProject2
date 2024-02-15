@@ -37,15 +37,16 @@
           <li><a href="../food/food_find.do">맛집 찾기</a></li>
           <li><a href="pages/sidebar-left.html">맛집 추천</a></li>
           <li><a href="pages/sidebar-right.html">맛집 예약</a></li>
-          <li><a href="pages/sidebar-right.html">맛집 레시피</a></li>
+          <li><a href="#">맛집 레시피</a></li>
         </ul>
       </li>
       <li><a class="drop" href="#">레시피</a>
         <ul>
-          <li><a href="pages/gallery.html">쉐프</a></li>
+          <li><a href="../recipe/recipe_list.do">레시피</a></li>
+          <li><a href="../recipe/chef_list.do">쉐프</a></li>
           <li><a href="pages/full-width.html">오늘의 레시피</a></li>
           <li><a href="pages/sidebar-left.html">오늘의 쉐프</a></li>
-          <li><a href="pages/sidebar-right.html">레시피 만들기</a></li>
+          <li><a href="../recipe/recipe_test.do">레시피 만들기</a></li>
         </ul>
       </li>
       <li><a class="drop" href="#">커뮤니티</a>

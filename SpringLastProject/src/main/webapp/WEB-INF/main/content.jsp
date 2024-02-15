@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,93 +48,39 @@
     <h2 class="sectiontitle">인기 레시피</h2>
     <div class="flexslider carousel basiccarousel btmspace-80">
       <ul class="slides">
+        <c:forEach var="vo" items="${reList}">
         <li>
-          <figure><img class="radius-10 btmspace-10" src="../images/demo/320x185.png" alt="">
-            <figcaption><a href="#">Lorem Ipsum Dolor Sit Amet</a></figcaption>
+          <figure><img class="radius-10 btmspace-10" src="${vo.poster }" style="width: 320px;height: 185px">
+            <figcaption><a href="#">${vo.title }</a></figcaption>
           </figure>
         </li>
-        <li>
-          <figure><img class="radius-10 btmspace-10" src="../images/demo/320x185.png" alt="">
-            <figcaption><a href="#">Lorem Ipsum Dolor Sit Amet</a></figcaption>
-          </figure>
-        </li>
-        <li>
-          <figure><img class="radius-10 btmspace-10" src="../images/demo/320x185.png" alt="">
-            <figcaption><a href="#">Lorem Ipsum Dolor Sit Amet</a></figcaption>
-          </figure>
-        </li>
-        <li>
-          <figure><img class="radius-10 btmspace-10" src="../images/demo/320x185.png" alt="">
-            <figcaption><a href="#">Lorem Ipsum Dolor Sit Amet</a></figcaption>
-          </figure>
-        </li>
-        <li>
-          <figure><img class="radius-10 btmspace-10" src="../images/demo/320x185.png" alt="">
-            <figcaption><a href="#">Lorem Ipsum Dolor Sit Amet</a></figcaption>
-          </figure>
-        </li>
+       </c:forEach>
       </ul>
     </div>
     
     <h2 class="sectiontitle">인기 쉐프</h2>
     <div class="flexslider carousel basiccarousel btmspace-80">
       <ul class="slides">
+        <c:forEach var="vo" items="${chList}">
         <li>
-          <figure><img class="radius-10 btmspace-10" src="../images/demo/320x185.png" alt="">
-            <figcaption><a href="#">Lorem Ipsum Dolor Sit Amet</a></figcaption>
+          <figure><img class="radius-10 btmspace-10" src="${vo.poster }" style="width: 320px;height: 185px">
+            <figcaption><a href="#">${vo.chef }</a></figcaption>
           </figure>
         </li>
-        <li>
-          <figure><img class="radius-10 btmspace-10" src="../images/demo/320x185.png" alt="">
-            <figcaption><a href="#">Lorem Ipsum Dolor Sit Amet</a></figcaption>
-          </figure>
-        </li>
-        <li>
-          <figure><img class="radius-10 btmspace-10" src="../images/demo/320x185.png" alt="">
-            <figcaption><a href="#">Lorem Ipsum Dolor Sit Amet</a></figcaption>
-          </figure>
-        </li>
-        <li>
-          <figure><img class="radius-10 btmspace-10" src="../images/demo/320x185.png" alt="">
-            <figcaption><a href="#">Lorem Ipsum Dolor Sit Amet</a></figcaption>
-          </figure>
-        </li>
-        <li>
-          <figure><img class="radius-10 btmspace-10" src="../images/demo/320x185.png" alt="">
-            <figcaption><a href="#">Lorem Ipsum Dolor Sit Amet</a></figcaption>
-          </figure>
-        </li>
+       </c:forEach>
       </ul>
     </div>
     
-    <h2 class="sectiontitle">구독이 많은 레시피</h2>
+    <h2 class="sectiontitle">인기 맛집</h2>
     <div class="flexslider carousel basiccarousel btmspace-80">
       <ul class="slides">
+       <c:forEach var="vo" items="${foodList}">
         <li>
-          <figure><img class="radius-10 btmspace-10" src="../images/demo/320x185.png" alt="">
-            <figcaption><a href="#">Lorem Ipsum Dolor Sit Amet</a></figcaption>
+          <figure><img class="radius-10 btmspace-10" src="http://www.menupan.com${vo.poster }" style="width: 320px;height: 185px">
+            <figcaption><a href="#">${vo.name }</a></figcaption>
           </figure>
         </li>
-        <li>
-          <figure><img class="radius-10 btmspace-10" src="../images/demo/320x185.png" alt="">
-            <figcaption><a href="#">Lorem Ipsum Dolor Sit Amet</a></figcaption>
-          </figure>
-        </li>
-        <li>
-          <figure><img class="radius-10 btmspace-10" src="../images/demo/320x185.png" alt="">
-            <figcaption><a href="#">Lorem Ipsum Dolor Sit Amet</a></figcaption>
-          </figure>
-        </li>
-        <li>
-          <figure><img class="radius-10 btmspace-10" src="../images/demo/320x185.png" alt="">
-            <figcaption><a href="#">Lorem Ipsum Dolor Sit Amet</a></figcaption>
-          </figure>
-        </li>
-        <li>
-          <figure><img class="radius-10 btmspace-10" src="../images/demo/320x185.png" alt="">
-            <figcaption><a href="#">Lorem Ipsum Dolor Sit Amet</a></figcaption>
-          </figure>
-        </li>
+       </c:forEach>
       </ul>
     </div>
     

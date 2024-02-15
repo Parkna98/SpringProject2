@@ -51,4 +51,12 @@ public interface FoodMapper {
 			+ "ORDER BY hit DESC) "
 			+ "WHERE rownum<=7")
 	public List<FoodVO> foodListTop7();
+	
+	@Select("SELECT fno,name,poster,rownum "
+			+ "FROM (SELECT fno,name,poster FROM food_menu_house "
+			+ "ORDER BY hit DESC) "
+			+ "WHERE rownum<=12")
+	public List<FoodVO> foodHomeTop12();
+	
+	
 }

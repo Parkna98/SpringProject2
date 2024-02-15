@@ -103,7 +103,7 @@ a.link:hover,img.img_click:hover{
 	  },
 	  methods:{
 		  goback(){
-			window.history.back()  
+			location.href="../food/food_list.do" 
 		  },
 		  addScript(){
 			  const script=document.createElement("script")

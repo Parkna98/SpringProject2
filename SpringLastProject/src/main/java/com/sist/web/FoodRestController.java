@@ -6,6 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.*;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+
 import com.sist.vo.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -154,6 +158,30 @@ public class FoodRestController {
 		int start=(rowSize*page)-(rowSize-1);
 		int end=(rowSize*page);
 		List<FoodVO> list=service.foodListData(start, end);
+		
+		ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(list);
+		
+		return json;
+	}
+	
+	@GetMapping(value="food_cookie_vue.do",produces = "text/plain;charset=UTF-8")
+	public String food_cookie(HttpServletRequest request) throws Exception{
+		Cookie[] cookies=request.getCookies();
+		List<FoodVO> list=new ArrayList<FoodVO>();
+		int k=0;
+		if(cookies!=null) {
+			for(int i=0;i<cookies.length;i++) {
+				if(k<9) {
+					if(cookies[i].getName().startsWith("food_")) {
+						String fno=cookies[i].getValue();
+						FoodVO vo=service.foodDetailData(Integer.parseInt(fno));
+						list.add(vo);
+					}
+					k++;
+				}
+			}
+		}
 		
 		ObjectMapper mapper=new ObjectMapper();
 		String json=mapper.writeValueAsString(list);

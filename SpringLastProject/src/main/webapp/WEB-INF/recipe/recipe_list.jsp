@@ -17,15 +17,15 @@ a.plink:hover,img.img_click:hover{
 </head>
 <body>
 <div class="wrapper row3">
-  <main class="container clear" id="foodApp"> 
-   <h3 class="sectiontitle">맛집목록</h3>
-    <div class="content"> 
+  <main class="container clear"> 
+   <h3 class="sectiontitle">레시피 목록</h3>
+    <div class="content" id="recipeApp"> 
       <div id="gallery">
         <figure>
-          <header class="heading"></header>
+          <header class="heading">총 <span style="font-size: 30px;color: green">{{count|currency}}</span>개의 맛있는 레시피가 있습니다.</header>
           <ul class="nospace clear">
-            <li v-for="(vo,index) in food_list"  :class="index%4==0?'one_quarter first':'one_quarter'">
-              <a :href="'../food/food_before_list_detail.do?fno='+vo.fno"><img :src="'http://www.menupan.com'+vo.poster" :title="vo.name"></a>
+            <li v-for="(vo,index) in recipe_list"  :class="index%4==0?'one_quarter first':'one_quarter'">
+              <a :href="'../recipe/recipe_detail.do?no='+vo.no"><img :src="vo.poster" :title="vo.title"></a>
             </li>
           </ul>
           <figcaption></figcaption>
@@ -40,16 +40,6 @@ a.plink:hover,img.img_click:hover{
       </nav>
     </div>
     <div class="clear"></div>
-    <div>
-      <h3>최근 방문 맛집</h3>
-      <br>
-      <span v-for="vo in cookie_list">
-        <a :href="'../food/food_list_detail.do?fno='+vo.fno">
-        <img :src="'http://www.menupan.com'+vo.poster" 
-        	style="width:100px;height: 100px;margin-left: 5px">
-        </a> 	
-      </span>
-    </div>
   </main>
 </div>
 <script>
@@ -57,13 +47,18 @@ a.plink:hover,img.img_click:hover{
 	  // 데이터관리 => 멤버변수 => this.
 	data(){
 		return{
-			food_list:[],
-			page_list:{},
+			recipe_list:[],
 			curpage:1,
 			totalpage:0,
 			startPage:0,
 			endPage:0,
-			cookie_list:[]
+			count:0
+		}
+	},
+	filters:{
+		currency(value){
+			let num=new Number(value);
+			return num.toFixed(0).replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "1,")
 		}
 	},
 	mounted(){
@@ -91,17 +86,17 @@ a.plink:hover,img.img_click:hover{
 	methods:{
 		// 공통모듈 => 반복제거
 		dataRecv(){
-			axios.get('../food/food_list_vue.do',{
+			axios.get('../recipe/recipe_list_vue.do',{
 				params:{
 					page:this.curpage
 				}
 			}).then(res=>{
 				console.log(res.data)
-				this.food_list=res.data
+				this.recipe_list=res.data
 			})
 			
 			// 페이지
-			axios.get('../food/food_page_vue.do',{
+			axios.get('../recipe/recipe_page_vue.do',{
 				params:{
 					page:this.curpage
 				}	
@@ -111,11 +106,7 @@ a.plink:hover,img.img_click:hover{
 				this.totalpage=res.data.totalpage
 				this.startPage=res.data.startPage
 				this.endPage=res.data.endPage
-			})
-			
-			axios.get('../food/food_cookie_vue.do').then(res=>{
-				console.log(res.data)
-				this.cookie_list=res.data
+				this.count=res.data.count
 			})
 			
 		},
@@ -140,7 +131,7 @@ a.plink:hover,img.img_click:hover{
 			this.dataRecv()
 		}
 	}
-  }).mount("#foodApp")
+  }).mount("#recipeApp")
 </script>
 </body>
 </html>
