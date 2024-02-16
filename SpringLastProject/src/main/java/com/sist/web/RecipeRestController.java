@@ -182,4 +182,29 @@ public class RecipeRestController {
 		return json;
 	}
 	
+	@GetMapping(value = "recipe/recipe_detail_vue.do",produces = "text/plain;charset=UTF-8")
+	public String recipe_detail_vue(int no) throws JsonProcessingException {
+		
+		RecipeDetailVO vo=rService.recipeDetailData(no);
+		String s=vo.getStuff();
+		s=s.replace("구매", "");
+		vo.setStuff(s);
+		ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(vo);
+		
+		return json;
+	}
+	
+	@GetMapping(value = "recipe/goods_vue.do",produces = "text/plain;charset=UTF-8")
+	public String recipe_goods_vue(String goods_name) throws JsonProcessingException{
+		
+		List<GoodsVO> list=rService.recipeGoodsData(goods_name);
+		
+		ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(list);
+		
+		return json;
+	}
+	
+	
 }

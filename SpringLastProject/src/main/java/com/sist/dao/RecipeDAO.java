@@ -49,4 +49,10 @@ public class RecipeDAO {
 	public int chefDetailFindTotalPage(Map map) {
 		return mapper.chefDetailFindTotalPage(map);
 	}
+	public RecipeDetailVO recipeDetailData(int no) {
+		return mapper.recipeDetailData(no);
+	}
+	public List<GoodsVO> recipeGoodsData(String goods_name){
+		return mapper.recipeGoodsData(goods_name);
+	}
 }

@@ -35,19 +35,25 @@ public interface RecipeMapper {
 	public List<RecipeVO> recipeTop12();
 	
 	// 목록
-	@Select("SELECT COUNT(*) FROM recipe")
+	@Select("SELECT COUNT(*) FROM recipe "
+			+ "WHERE no IN(SELECT no FROM recipedetail)")
 	public int recipeCount();
 	
 	@Select("SELECT no,title,poster,num "
 			+ "FROM (SELECT no,title,poster,rownum as num "
 			+ "FROM (SELECT /*+ INDEX_ASC(recipe recipe_no_pk)*/ no,title,poster "
-			+ "FROM recipe)) "
+			+ "FROM recipe WHERE no IN(SELECT no FROM recipedetail))) "
 			+ "WHERE num BETWEEN #{start} AND #{end}")
 	public List<RecipeVO> recipeListData(@Param("start") int start, @Param("end") int end);
 	
-	@Select("SELECT CEIL(COUNT(*)/20.0) FROM recipe")
+	@Select("SELECT CEIL(COUNT(*)/20.0) FROM recipe WHERE no IN(SELECT no FROM recipedetail)")
 	public int recipeTotalPage();
+	
 	// 상세보기
+	@Select("SELECT * FROM recipedetail "
+			+ "WHERE no=#{no}")
+	public RecipeDetailVO recipeDetailData(int no);
+	
 	
 	// 쉐프
 	@Select("SELECT cno,chef,poster,mem_cont1,mem_cont2,mem_cont3,mem_cont7,num "
@@ -83,5 +89,9 @@ public interface RecipeMapper {
 			+ "WHERE chef=(SELECT chef FROM chef WHERE cno=#{cno}) AND title LIKE '%'||#{ss}||'%'")
 	public int chefDetailFindTotalPage(Map map);
 	
+	@Select("SELECT goods_poster,goods_name,goods_price "
+			+ "FROM goods_all "
+			+ "WHERE goods_name LIKE '%'||#{goods_name}||'%'")
+	public List<GoodsVO> recipeGoodsData(String goods_name);
 	
 }
