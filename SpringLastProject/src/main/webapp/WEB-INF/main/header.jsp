@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,26 +8,30 @@
 <title>Insert title here</title>
 </head>
 <body>
+
 <div class="wrapper row1">
   <header id="header" class="clear"> 
     <div id="logo" class="fl_left">
       <h1><a href="../main/main.do">Gravity</a></h1>
     </div>
+    <c:if test="${sessionScope.userId!=null }">
     <div class="fl_right">
       <ul class="inline">
-        <li><i class="fa fa-phone"></i> +00 (123) 456 7890</li>
-        <li><i class="fa fa-envelope-o"></i> info@domain.com</li>
+        <li></i>${sessionScope.userName }(${sessionScope.authority=='ROLE_ADMIN'?'관리자':'일반사용자' })</li>
+        <li>님 환영합니다.</li>
       </ul>
     </div>
+    </c:if> 
   </header>
 </div>
+
 <div class="wrapper row2">
   <nav id="mainav" class="clear"> 
     <ul class="clear">
       <li class="active"><a href="../main/main.do">Home</a></li>
       <li><a class="drop" href="#">회원</a>
         <ul>
-          <li><a href="pages/gallery.html">회원가입</a></li>
+          <li><a href="../member/join.do">회원가입</a></li>
           <li><a href="pages/full-width.html">ID 찾기</a></li>
           <li><a href="pages/sidebar-left.html">비밀번호 찾기</a></li>
         </ul>
@@ -35,9 +40,9 @@
         <ul>
           <li><a href="../food/food_list.do">맛집 목록</a></li>
           <li><a href="../food/food_find.do">맛집 찾기</a></li>
-          <li><a href="pages/sidebar-left.html">맛집 추천</a></li>
-          <li><a href="pages/sidebar-right.html">맛집 예약</a></li>
-          <li><a href="#">맛집 레시피</a></li>
+          <li><a href="../food/food_recommend.do">맛집 추천</a></li>
+          <li><a href="../food/food_reserve.do">맛집 예약</a></li>
+          <li><a href="../food/food_recipe.do">맛집 레시피</a></li>
         </ul>
       </li>
       <li><a class="drop" href="#">레시피</a>
@@ -57,11 +62,17 @@
         </ul>
       </li>
       <li><a href="#">실시간 채팅</a></li>
-      <li><a href="#">마이페이지</a></li>
-      <li><a href="#">관리자페이지</a></li>
-      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      <!-- <li><a href="#">마이페이지</a></li>
+      <li><a href="#">관리자페이지</a></li> -->
+      <c:if test="${sessionScope.userId==null }">
+        <li class="nav navbar-nav navbar-right"><a href="../member/login.do"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </c:if>
+      <c:if test="${sessionScope.userId!=null }">
+        <li class="nav navbar-nav navbar-right"><a href="../member/logout.do"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+      </c:if>
     </ul>
   </nav>
 </div>
+
 </body>
 </html>
