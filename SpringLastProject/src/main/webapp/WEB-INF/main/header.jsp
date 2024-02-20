@@ -61,7 +61,7 @@
           <li><a href="pages/sidebar-left.html">묻고답하기</a></li>
         </ul>
       </li>
-      <li><a href="#">실시간 채팅</a></li>
+      <li><a href="../chat/chat.do">실시간 채팅</a></li>
       <!-- <li><a href="#">마이페이지</a></li>
       <li><a href="#">관리자페이지</a></li> -->
       <c:if test="${sessionScope.userId==null }">

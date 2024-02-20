@@ -44,4 +44,16 @@ public class FoodDAO {
 	public List<FoodVO> foodHomeTop12(){
 		return mapper.foodHomeTop12();
 	}
+	
+	public List<String> foodAllData(){
+		return mapper.foodAllData();
+	}
+	
+	public FoodVO foodNameInfoData(String name) {
+		return mapper.foodNameInfoData(name);
+	}
+	
+	public List<RecipeVO> foodRecipeData(String type){
+		return mapper.foodRecipeData(type);
+	}
 }

@@ -58,5 +58,21 @@ public interface FoodMapper {
 			+ "WHERE rownum<=12")
 	public List<FoodVO> foodHomeTop12();
 	
+	@Select("SELECT name FROM food_menu_house "
+			+ "WHERE length(name)>1 ORDER BY fno ASC")
+	public List<String> foodAllData();
+	
+	@Select("SELECT fno,name,poster "
+			+ "FROM food_menu_house "
+			+ "WHERE name=#{name}")
+	public FoodVO foodNameInfoData(String name);
+	
+	@Select("SELECT no,title,poster,rownum "
+			+ "FROM recipe "
+			+ "WHERE no IN(SELECT no FROM recipe "
+			+ "INTERSECT SELECT no FROM recipeDetail) "
+			+ "AND REGEXP_LIKE(title,#{type}) "
+			+ "AND rownum<=12")
+	public List<RecipeVO> foodRecipeData(String type);
 	
 }

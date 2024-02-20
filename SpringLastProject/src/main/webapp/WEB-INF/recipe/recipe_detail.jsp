@@ -85,6 +85,46 @@ a.link:hover,img.img_click:hover{
        </td>
      </tr>
    </table>
+   <div style="height: 10px"></div>
+   <table class="table">
+     <tr>
+       <td>
+         <table class="table" v-for="rvo in reply_list">
+           <tr>
+             <td class="text-left">(●{{rvo.userName}}{{rvo.dbday}})</td>
+             <td class="text-right">
+              <span class="inline">
+               <input type="button" class="btn-xs btn-info" value="수정" @click="updateForm(rvo.no)" :id="'up'+rvo.no">&nbsp;
+               <input type="button" class="btn-xs btn-danger" value="삭제" @click="replyDelete(rvo.no)">
+              </span>
+             </td>
+           </tr>
+           <tr>
+             <td colspan="2" class="text-left" valign="top">
+               <pre style="white-space: pre-wrap;background-color: white;border:none">{{rvo.msg}}</pre>
+             </td>
+           </tr>
+		     <tr style="display: none;" :id="'u'+rvo.no" class="ups">
+		       <td>
+		         <textarea rows="4" cols="85" :id="'u_msg'+rvo.no" style="float:left;">{{rvo.msg}}</textarea>
+		         <input type="button" value="댓글수정" class="btn-danger" style="float: left;width: 110px;height: 91px"
+		          @click="replyUpdate(rvo.no)">
+		       </td>
+		     </tr>
+         </table>
+       </td>
+     </tr>
+   </table>
+   <table class="table" v-if="sessionId">
+     <tr>
+       <td>
+         <textarea rows="4" cols="85" ref="msg" style="float:left;" v-model="msg"></textarea>
+         <input type="button" value="댓글쓰기" class="btn-danger" style="float: left;width: 110px;height: 91px"
+          @click="replyInsert()">
+       </td>
+     </tr>
+   </table>
+   
   </main>
   <div id="dialog" title="레시피 관련 상품" v-show="isShow">
     <goods-data v-bind:goods="goods"></goods-data>
@@ -116,23 +156,87 @@ a.link:hover,img.img_click:hover{
 			make:[],
 			poster:[],
 			goods:[],
-			isShow:false
-		}  
+			isShow:false,
+			reply_list:[],
+			sessionId:'${sessionId}',
+			msg:'',
+			u:0
+		}
+		 
 	  },
 	  mounted(){
 		this.detailRecv()  
 	  },
 	  methods:{
+		  replyUpdate(no){
+			let msg=$('#u_msg'+no).val()
+			axios.post('../recipe/reply_update_vue.do',null,{
+				params:{
+					no:no,
+					rno:this.no,
+					msg:msg
+				}
+			}).then(res=>{
+				this.reply_list=res.data
+				$('#u'+no).hide('slow')
+				$('#up'+no).val('수정')
+			})
+		  },
+		  updateForm(no){
+			  $('.ups').hide();
+			  $('#up'+no).val('수정')
+			  if(this.u==0){
+				  this.u=1;
+				  $('#u'+no).show();
+				  $('#up'+no).val('취소');
+			  }else{
+				  this.u=0;
+				  $('#u'+no).hide();
+				  $('#up'+no).val('수정');
+			  }
+		  },
+		  replyInsert(){
+			  if(this.msg===''){
+				  this.$refs.focus()
+				  return
+			  }
+			  axios.post('../recipe/reply_insert_vue.do',null,{
+					params:{
+						rno:this.no,
+						msg:this.msg
+					}  
+			  }).then(res=>{
+				  this.reply_list=res.data
+				  this.msg=''
+			  })  
+		  },
+		  replyDelete(no){
+			  axios.get('../recipe/reply_delete_vue.do',{
+	    		  params:
+	    			  {
+	    			      no:no,
+	    			      rno:this.no
+	    			  }
+	    			
+	    		}).then(res=>{
+	    			this.reply_list=res.data
+	    		})   
+		  },
+		  
+		  
 		  detailRecv(){
 			  axios.get('../recipe/recipe_detail_vue.do',{
 				  params:{
 					  no:this.no
 				  }
+			  	
 			  }).then(res=>{
 				  console.log(res.data)
-				  this.recipe_data=res.data
-				  this.stuff=res.data.stuff.split(',')
-				  let makedata=res.data.foodmake.split("\n")
+				  this.recipe_data=res.data.detail_data
+				  this.stuff=res.data.detail_data.stuff.split(',')
+				  let makedata=res.data.detail_data.foodmake.split("\n")
+				  this.reply_list=res.data.reply_list
+				  
 				  let p=[]
 				  let m=[]
 				  for(let i=0;i<makedata.length-1;i++){
@@ -140,8 +244,6 @@ a.link:hover,img.img_click:hover{
 					  this.make[i]=aa[0]
 					  this.poster[i]=aa[1]
 				  }
-				  console.log(this.make)
-				  console.log(this.poster)
 			  })
 		  },
 		  posterPrint(i){

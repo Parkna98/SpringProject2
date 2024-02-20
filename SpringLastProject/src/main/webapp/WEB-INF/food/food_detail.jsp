@@ -70,6 +70,19 @@ a.link:hover,img.img_click:hover{
       <div id="map" style="width: 100%;height: 350px"></div>
     </div>
     <div class="clear"></div>
+    
+    <div class="row">
+	  <div class="col-md-3" v-for="r in recipe_list">
+	    <div class="thumbnail">
+	      <a :href="'../recipe/recipe_detail.do?no='+r.no">
+	        <img :src="r.poster" :title="r.title" style="width:100%">
+	        <div class="caption">
+	        </div>
+	      </a>
+	    </div>
+  	  </div>
+  	</div>
+    
   </main>
 </div>
 <script>
@@ -79,20 +92,24 @@ a.link:hover,img.img_click:hover{
 			food_detail:{},
 			fno:${fno},
 			name:'',
-			address:''
+			address:'',
+			food_typeee:'한식',
+			recipe_list:[]
 		}  
 	  },
 	  mounted(){
 		  axios.get('../food/food_detail_vue.do',{
 				params:{
 					fno:this.fno
+					
 				}  
 		  }).then(res=>{
 			  console.log(res.data)
 			  this.food_detail=res.data
 			  this.name=res.data.name
 			  this.address=res.data.address
-			  
+			  this.food_typeee=res.data.type
+			  console.log(this.food_typeee)
 			  if(window.kakao && window.kakao.maps){
 				  this.initMap()
 			  }
@@ -100,8 +117,22 @@ a.link:hover,img.img_click:hover{
 				  this.addScript()
 			  }
 		  })
+		  
+		  console.log(this.food_typeee)
+		  console.log('loading')
+			  
+			  axios.get('../food/food_detail_recipeee.do',{
+				  params:{
+						fno:this.fno
+				  }
+			  }).then(res=>{
+				  console.log(res.data)
+				  this.recipe_list=res.data
+			  })
+		  
 	  },
 	  methods:{
+		  
 		  goback(){
 			location.href="../food/food_list.do" 
 		  },

@@ -32,9 +32,7 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public MemberVO memberLogin(String userId, String userPwd) {
 		// TODO Auto-generated method stub
-		mDao.memberLogin(userId, userPwd);
-		MemberVO m=new MemberVO();
-		return   m;
+		return mDao.memberLogin(userId, userPwd);
 	}
 
 }

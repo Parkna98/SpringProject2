@@ -14,6 +14,9 @@ public class RecipeRestController {
 	@Autowired
 	private RecipeService rService;
 	
+	@Autowired
+	private ReplyService replyService;
+	
 	// Vue,React에서 요청 ==> 자바스크립트가 인식하는 데이터로 변경후에 전송
 	//										  ========== JSON : JavaScript Object Notation
 	
@@ -189,8 +192,14 @@ public class RecipeRestController {
 		String s=vo.getStuff();
 		s=s.replace("구매", "");
 		vo.setStuff(s);
+		
+		List<ReplyVO> list=replyService.recipeReplyData(no);
+		Map map=new HashMap();
+		map.put("detail_data", vo);
+		map.put("reply_list", list);
+		
 		ObjectMapper mapper=new ObjectMapper();
-		String json=mapper.writeValueAsString(vo);
+		String json=mapper.writeValueAsString(map);
 		
 		return json;
 	}

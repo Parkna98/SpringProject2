@@ -28,7 +28,7 @@ public class MemberDAO {
 	
 	public MemberVO memberLogin(String userId,String userPwd) {
 		MemberVO dbVO=new MemberVO();
-		int count=mapper.memberIdCount(dbVO.getUserId());
+		int count=mapper.memberIdCount(userId);
 		if(count==0) {
 			dbVO.setMsg("NOID");
 		}else {

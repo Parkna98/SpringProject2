@@ -30,7 +30,7 @@
         <tr>
           <td width="20%" class="text-right">Password</td>
           <td width="80%">
-            <input type="text" ref="pwd" class="input-sm" v-model="pwd">
+            <input type="password" ref="pwd" class="input-sm" v-model="pwd">
           </td>
         </tr>
         <tr>
