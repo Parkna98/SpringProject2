@@ -7,11 +7,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sist.service.MemberService;
 import com.sist.service.ReplyService;
 import com.sist.vo.*;
 
 import oracle.jdbc.proxy.annotation.Post;
 
+import java.security.Principal;
 import java.util.*;
 
 import javax.servlet.http.HttpSession;
@@ -20,6 +22,9 @@ import javax.servlet.http.HttpSession;
 public class ReplyRestController {
 	@Autowired
 	private ReplyService rService;
+	
+	@Autowired 
+	private MemberService mService;
 	
 	// insert,update,delete
 	public String commonsReplyData(int rno) throws Exception{
@@ -30,10 +35,11 @@ public class ReplyRestController {
 	}
 	
 	@PostMapping(value="recipe/reply_insert_vue.do",produces = "text/plain;charset=UTF-8")
-	public String reply_insert(ReplyVO vo,HttpSession session) throws Exception{
+	public String reply_insert(ReplyVO vo,Principal p) throws Exception{
 		
-		String userId=(String)session.getAttribute("userId");
-		String userName=(String)session.getAttribute("userName");
+		String userId=p.getName();
+		MemberVO mvo=mService.memberInfoData(userId);
+		String userName=mvo.getUserName();
 		vo.setUserId(userId);
 		vo.setUserName(userName);
 		// 넘어오는 vo => rno,msg

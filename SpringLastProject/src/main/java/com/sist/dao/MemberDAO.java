@@ -1,5 +1,7 @@
 package com.sist.dao;
 
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
@@ -42,4 +44,18 @@ public class MemberDAO {
 		}
 		return dbVO;
 	}
+	
+	public MemberVO memberInfoData(String userId) {
+		return mapper.memberInfoData(userId);
+	}
+	
+	public MemberVO memberSessionData(String userId) {
+		return mapper.memberSessionData(userId);
+	}
+	
+	public void lastLoginUpdate(String userId) {
+		mapper.lastLoginUpdate(userId);
+	}
+	
+	
 }

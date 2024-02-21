@@ -44,9 +44,11 @@ public class MemberController {
 		return "member/login";
 	}
 	
+	/*
 	@GetMapping("member/logout.do")
 	public String member_logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:../main/main.do";
 	}
+	*/
 }

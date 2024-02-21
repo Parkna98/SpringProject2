@@ -19,12 +19,12 @@
 	-->
 	<context:component-scan base-package="com.sist.*"/>
 	<mvc:annotation-driven/>
-	<mvc:interceptors>
+	<!-- <mvc:interceptors>
 	  <mvc:interceptor>
 	    <mvc:mapping path="/member/login.do"/>
 	    <bean id="autoLoginInterceptor" class="com.sist.interceptor.AutoLoginInterCeptor"/>
 	  </mvc:interceptor>
-	</mvc:interceptors>
+	</mvc:interceptors> -->
 	
 	<!-- 
 			JSP를 찾을 수 있게 경로명 / 확장자 => ViewResolver

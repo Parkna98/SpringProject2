@@ -11,7 +11,7 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
 
 	<!-- properties 파일 읽기 -->
-	<util:properties id="db" location="/WEB-INF/config/db.properties"/>
+	<util:properties id="db" location="/WEB-INF/database/db.properties"/>
 	<!-- DataSource에 properties에 있는 값을 읽어서 주입 : DI -->
 	<!-- DataSource : 데이터베이스의 정보 -->
 	<bean id="ds" class="org.apache.commons.dbcp.BasicDataSource"

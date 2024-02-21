@@ -19,6 +19,7 @@ package com.sist.mapper;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.sist.vo.MemberVO;
 
@@ -47,6 +48,19 @@ public interface MemberMapper {
 			+ "AND pm.userId=#{userId}")
 	public MemberVO memberLogin(String userId);
 	
+	// 사용자 정보 읽기
+	@Select("SELECT userId,userName FROM projectMember "
+			+ "WHERE userId=#{userId}")
+	public MemberVO memberInfoData(String userId);
 	
+	@Select("SELECT userId,userName,sex,email,phone,addr1,addr2 "
+			+ "FROM projectMember "
+			+ "WHERE userId=#{userId}")
+	public MemberVO memberSessionData(String userId);
+	
+	@Update("UPDATE projectMember SET "
+			+ "lastlogin=SYSDATE "
+			+ "WHERE userId=#{userId}")
+	public void lastLoginUpdate(String userId);
 	
 }

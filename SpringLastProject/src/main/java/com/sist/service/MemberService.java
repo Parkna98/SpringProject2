@@ -7,4 +7,7 @@ public interface MemberService {
 	public void memberInsert(MemberVO vo);
 	public void memberAuthorityInsert(String userid);
 	public MemberVO memberLogin(String userId,String userPwd);
+	public MemberVO memberInfoData(String userId); 
+	public MemberVO memberSessionData(String userId); 
+	public void lastLoginUpdate(String userId);
 }
