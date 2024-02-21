@@ -29,15 +29,16 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler{
 	@Setter
 	private String defaultUrl;
 	
-	/*
-	 * @Autowired private MemberService mService;
-	 */
+	
+	  @Autowired 
+	  private MemberService mService;
+	 
 	
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
 		// TODO Auto-generated method stub
-		/*
+		
 		HttpSession session=request.getSession();
 		mService.lastLoginUpdate(authentication.getName());
 		
@@ -51,7 +52,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler{
 		info.setAddress(vo.getAddr1()+" "+vo.getAddr2());
 		info.setSex(vo.getSex());
 		session.setAttribute("member", info);
-		*/
+		
 		resultRedirectStrategy(request, response, authentication);
 	}
 	

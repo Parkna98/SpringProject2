@@ -48,9 +48,10 @@ public interface MemberMapper {
 			+ "AND pm.userId=#{userId}")
 	public MemberVO memberLogin(String userId);
 	
-	@Select("SELECT userId,userName,sex,email,phone,addr1,addr2 "
-			+ "FROM projectMember "
-			+ "WHERE userId=#{userId}")
+	@Select("SELECT pm.userId,userName,sex,email,phone,addr1,addr2,enabled,authority "
+			+ "FROM projectMember pm,projectAuthority pa "
+			+ "WHERE pm.userId=pa.userId "
+			+ "AND pm.userId=#{userId}")
 	public MemberVO memberSessionData(String userId);
 	
 	@Update("UPDATE projectMember SET "
