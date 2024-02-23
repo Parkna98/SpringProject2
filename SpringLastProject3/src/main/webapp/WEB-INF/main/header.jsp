@@ -86,10 +86,10 @@
       </sec:authorize>
       
       <sec:authorize access="hasRole('ROLE_USER')">
-      <li><a href="#">마이페이지</a></li>
+      <li><a href="../mypage/mypage.do">마이페이지</a></li>
       </sec:authorize>
       <sec:authorize access="hasRole('ROLE_ADMIN')">
-      <li><a href="#">관리자페이지</a></li>
+      <li><a href="../adminpage/admin.do">관리자페이지</a></li>
       </sec:authorize>
       
       <c:if test="${sessionScope.userId==null }">

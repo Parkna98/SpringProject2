@@ -15,10 +15,12 @@ import javax.mail.internet.MimeMessage;
 
 import com.sist.mail.*;
 import com.sist.vo.MemberVO;
+import com.sist.vo.ReserveVO;
 
 
 @Component
 public class MailManager {
+	
 	public void mailMemberSender(MemberVO vo) {
 	
 		String temp="";
@@ -96,7 +98,42 @@ public class MailManager {
 			e.printStackTrace();
 		}
 	}
-	public void mailReserveSender() {
-		
+	public void mailReserveSender(ReserveVO vo) {
+		String html="<html>"
+      		     + "<head>"
+      		     + "</head>"
+      		     + "<body>"
+      		     + "<table width=450>"
+      		     + "<tr>"
+      		     + "<th width=15%>아이디</th>"
+      		     + "<td width=85%>"+vo.getUserId()+"</td>"
+      		     + "</tr>"
+      		     + "<tr>"
+      		     + "<th width=15%>업체명</th>"
+      		     + "<td width=85%>"+vo.getFvo().getName()+"</td>"
+      		     + "</tr>"
+      		     + "<tr>"
+      		     + "<th width=15%>이미지</th>"
+      		     + "<td width=85%><img src=\"http://www.menupan.com"+vo.getFvo().getPoster()+"\" style=\"width:35px;height:35px\"</td>"
+      		     + "</tr>"
+      		     + "<tr>"
+      		     + "<th width=15%>예약일</th>"
+      		     + "<td width=85%>"+vo.getRDate()+"</td>"
+      		     + "</tr>"
+      		     + "<tr>"
+      		     + "<th width=15%>예약시간</th>"
+      		     + "<td width=85%>"+vo.getRTime()+"</td>"
+      		     + "</tr>"
+      		     + "<tr>"
+      		     + "<th width=15%>인원</th>"
+      		     + "<td width=85%>"+vo.getRInwon()+"</td>"
+      		     + "</tr>"
+      		     + "<tr>"
+      		     + "<th width=15%>예약등록일</th>"
+      		     + "<td width=85%>"+vo.getDbday()+"</td>"
+      		     + "</tr>"
+      		     + "</table>"
+      		     + "</body>"
+      		     + "</html>";
 	}
 }
