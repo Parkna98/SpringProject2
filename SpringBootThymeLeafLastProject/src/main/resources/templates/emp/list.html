@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<style type="text/css">
+.container{
+	margin-top: 50px;
+}
+.row{
+	margin: 0px auto;
+	width: 850px;
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <h1 class="text-center">사원 목록</h1>
+      <table class="table">
+        <tr class="success">
+          <th>사번</th>
+          <th>이름</th>
+          <th>직위</th>
+          <th>입사일</th>
+          <th>급여</th>
+          <th>부서명</th>
+          <th>근무지</th>
+        </tr>
+        <tr th:each="vo:${list}">
+          <td th:text="${vo.empno}"></td>
+          <td><a th:href="@{/emp/detail(empno=${vo.empno})}" th:text="${vo.ename}"></a></td>
+          <td th:text="${vo.job}"></td>
+          <td th:text="${vo.hiredate}"></td>
+          <td th:text="${vo.sal}"></td>
+          <td th:text="${vo.dept.dname}"></td>
+          <td th:text="${vo.dept.loc}"></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div class="wrapper row3">
+  <main class="container clear"> 
+    <div class="content"> 
+      <div id="gallery">
+        <figure>
+          <header class="heading">총 <span style="font-size: 35px;color: green" th:text="${count}"></span>개의 맛있는 레시피가 있습니다.</header>
+          <ul class="nospace clear">
+            <li th:each="vo,i:${list}" th:class="${i.index%4==0?'one_quarter first':'one_quarter'}">
+            	<a th:href="@{/recipe/before_detail(no=${vo.no})}">
+            	  <img th:src="${vo.poster}" th:title="${vo.title}">
+                </a>
+            </li>
+          </ul>
+        </figure>
+      </div>
+      <nav class="pagination">
+        <ul>
+          <li th:if="${startPage>1}"><a th:href="@{/recipe/main(page=${startPage-1})}">&laquo; Previous</a></li>
+          <li th:class="${curpage==i?'current':''}" th:each="i:${#numbers.sequence(startPage,endPage)}">
+            <a th:href="@{/recipe/main(page=${i})}" th:text="${i}"></a>
+          </li>
+          <li th:if="${endPage<totalpage}"><a th:href="@{/recipe/main(page=${endPage+1})}">Next &raquo;</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="clear"></div>
+  </main>
+</div>
+</body>
+</html>

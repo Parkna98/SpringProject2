@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+<div class="wrapper row3">
+  <div id="slider" class="clear"> 
+    <div class="flexslider basicslider">
+      <ul class="slides">
+        <li><a href="#"><img class="radius-10" src="images/demo/slides/back1.jpg" style="width:978px;height:400px"></a></li>
+        <li><a href="#"><img class="radius-10" src="images/demo/slides/back2.jpg" style="width:978px;height:400px"></a></li>
+        <li><a href="#"><img class="radius-10" src="images/demo/slides/back3.jpg" style="width:978px;height:400px"></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="wrapper row3">
+  <main class="container clear"> 
+    <!-- main body --> 
+    
+    <h2 class="sectiontitle">인기 레시피</h2>
+    <div class="flexslider carousel basiccarousel btmspace-80">
+      <ul class="slides">
+        <li th:each="vo:${list}">
+          <figure><img class="radius-10 btmspace-10" th:src="${vo.poster}" alt="">
+            <figcaption><a href="#" th:text="${vo.title}"></a></figcaption>
+          </figure>
+        </li>
+      </ul>
+    </div>
+    <h2 class="sectiontitle">최근 방문 레시피</h2>
+      <div class="inline">
+        <a th:href="@{/recipe/detail(no=${cvo.no})}" th:each="cvo:${cList}">
+          <img th:src="${cvo.poster}" style="width: 100px;height: 100px;margin-left: 3px;">
+        </a>
+      </div>
+    <!-- / main body -->
+    <div class="clear"></div>
+  </main>
+</div>
+</body>
+</html>

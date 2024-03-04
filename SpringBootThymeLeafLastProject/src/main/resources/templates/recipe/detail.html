@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div class="wrapper row3">
+  <main class="container clear"> 
+    <h2 class="sectiontitle">레시피 상세보기</h2>
+    <table class="table">
+      <tr>
+        <td colspan="3" align="center">
+          <img th:src="${vo.poster}" style="width: 600px;height: 250px;">
+        </td>
+      </tr>
+     <!--  <tr th:each="p,i:${pList}">
+        <td th:text="${p}"></td>
+        <td><img th:src="${iList[i.index]}" style="width:150px;height: 100px;"></td>
+      </tr> -->
+      <tr>
+        <td colspan="3" align="center">
+          <h3 th:text="${vo.title}"></h3>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3" align="center" th:texet="${vo.content}"></td>
+      </tr>
+      <tr>
+        <td align="center"><img src="../images/icon/a1.png"></td>
+        <td align="center"><img src="../images/icon/a2.png"></td>
+        <td align="center"><img src="../images/icon/a3.png"></td>
+      </tr>
+      <tr>
+        <td align="center" th:text="${vo.info1}"></td>
+        <td align="center" th:text="${vo.info2}"></td>
+        <td align="center" th:text="${vo.info3}"></td>
+      </tr>
+    </table>
+    <table class="table">
+      <caption><h3>재료</h3></caption>
+      <!-- <tr>
+        <td>
+          <ul>
+            <li th:each="s:${sList}" th:text="${s}"></li>
+          </ul>
+        </td>
+      </tr> -->
+    </table>
+    <table class="table">
+      <caption><h3>레시피 작성자</h3></caption>
+      <tr>
+        <td width="30%" rowspan="2">
+          <img th:src="${vo.chef_poster}" style="width: 100px;height: 100px;">
+        </td> 
+        <td width="70%" th:text="${vo.chef}"></td>
+      </tr>
+      <tr>
+        <td width="70%" th:text="${vo.chef_profile}"></td>
+      </tr>
+    </table>
+    <table class="table">
+      <tr>
+        <td align="right">
+          <input type="button" value="목록" onclick="javascript:history.back()">
+        </td>
+      </tr>
+    </table>
+  </main>
+</div>
+</body>
+</html>
