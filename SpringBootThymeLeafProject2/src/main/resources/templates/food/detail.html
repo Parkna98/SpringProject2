@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<style type="text/css">
+.container{
+	margin-top: 50px;
+}
+.row{
+	margin: 0px auto;
+	width: 800px;
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <table class="table">
+        <tr>
+          <td class="text-center" rowspan="8" width="30%">
+            <img th:src="${vo.poster}" style="width: 240px;height: 350px">
+          </td>
+          <td colspan="2" width="70%"><h3 th:text="${vo.name}"></h3>&nbsp;<span style="color:orange" th:text="${vo.score}"></span></td>
+        </tr>
+        <tr>
+          <td width="20%" class="text-center">주소</td>
+          <td width="50%" th:text="${vo.address}"></td>
+        </tr>
+        <tr>
+          <td width="20%" class="text-center">전화</td>
+          <td width="50%" th:text="${vo.phone}"></td>
+        </tr>
+        <tr>
+          <td width="20%" class="text-center">가격대</td>
+          <td width="50%" th:text="${vo.price}"></td>
+        </tr>
+        <tr>
+          <td width="20%" class="text-center">테마</td>
+          <td width="50%" th:text="${vo.theme}"></td>
+        </tr>
+        <tr>
+          <td width="20%" class="text-center">영업시간</td>
+          <td width="50%" th:text="${vo.time}"></td>
+        </tr>
+        <tr>
+          <td width="20%" class="text-center">좌석</td>
+          <td width="50%" th:text="${vo.seat}"></td>
+        </tr>
+        <tr>
+          <td colspan="3" class="text-right">
+            <input type="button" value="목록" class="btn btn-sm btn-primary" onclick="javascript:history.back()">
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

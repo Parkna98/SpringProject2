@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <!-- 
+ 		TO_CHAR => DATE_FORMAT
+ 		TO_CHAR(regdate,'YYYY-MM-DD') => DATE_FORMAT(regdate,'%Y-%m-%d')
+ 		NVL => IFNULL
+  -->
+ <mapper namespace="com.sist.web.mapper.FoodMapper">
+   <select id="foodListData" resultType="FoodVO" parameterType="int">
+     SELECT fno,poster,name,price 
+     FROM food_house
+     ORDER BY fno ASC
+     LIMIT #{start},12 
+   </select>
+   <select id="foodTotalPage" resultType="int">
+     SELECT CEIL(COUNT(*)/12.0) FROM food_house
+   </select>
+   <!-- 
+   		상세보기 
+   		프로그램 => 희소성		
+   -->
+   <select id="foodDetailData" resultType="FoodVO" parameterType="int">
+ 	 SELECT fno,name,CONCAT('http://www.menupan.com',poster) as poster,type,address,phone,theme,price,time,seat,score 
+ 	 FROM food_house 
+ 	 WHERE fno=#{fno}
+   </select>
+   <!-- 
+   		WHERE name LIKE '%'||#{name}||'%'
+   		WHERE name LIKE CONCAT('%',#{name},'%')
+    -->
+ </mapper>
+ 
+ 
+ 
